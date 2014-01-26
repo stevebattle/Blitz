@@ -7,8 +7,9 @@
  *
  */
 
-color BACKGROUND = color(102, 178, 255); // light blue
-color GROUND_COLOUR = color(128,128,128); // grey
+color SKY_COLOUR = color(135,206,255); // sky blue 1
+color GROUND_COLOUR = color(124,242,0); // lawn green
+color TEXT_COLOUR = color(74,112,139); // sky blue 4
 int BORDER = 12; // width/height of the border
 int GROUND = 4; // height of ground in pixels
 int CLEARANCE = 5; // clearance below the plane
@@ -33,11 +34,13 @@ void drawGround() {
 }
 
 void drawScore() {
+  fill(TEXT_COLOUR);
   textSize(FONT_SIZE);
   text("SCORE "+score,BORDER,BORDER+36);
 }
 
 void drawBest() {
+  fill(TEXT_COLOUR);
   textSize(FONT_SIZE);
   text("BEST "+best,width/2,BORDER+36);
 }
@@ -63,7 +66,7 @@ void startGame() {
 }
 
 void draw() {
-  background(BACKGROUND);
+  background(SKY_COLOUR);
   drawGround();
   drawScore();
   drawBest();
