@@ -54,7 +54,6 @@ class City {
   }
   
   int getBuildingHeight(int i) {
-    println(i);
     return floors[i];
   }
   
