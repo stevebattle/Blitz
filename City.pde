@@ -17,7 +17,7 @@ class City {
   
   void initialise(int cityHeight, int level) {
     maxFloors = cityHeight/block.height;
-    buildings = (width - BREATHING_SPACE*BORDER)/(block.width+GAP);
+    buildings = (width -SPACE)/(block.width+GAP);
     margin = (width -buildings*(block.width+GAP) +GAP) /2;
     floors = new int[buildings];
     tops = new int[buildings];
@@ -49,16 +49,17 @@ class City {
   
   int getBuilding(int x) {
     if (x<margin) return -1;
-    int i = (x-margin)/(block.width+GAP);
-    return i<0 || i>=buildings ? -1 : i;
+    int i = int(map(x,margin,margin+buildings*(block.width+GAP),0,buildings));
+    return i<buildings ? i : -1;
   }
   
   int getBuildingHeight(int i) {
+    println(i);
     return floors[i];
   }
   
-  int getBuildingX(int i) {
-    return i*(block.width+GAP) +margin;
+  int getBuildingCentre(int i) {
+    return i*(block.width+GAP) +margin +city.block.width/2;
   }
   
   void crash(int i) {

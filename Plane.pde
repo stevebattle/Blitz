@@ -18,7 +18,7 @@ class Plane {
   void initialise(int cityHeight) {
     state = 0;
     altitude = cityHeight/city.block.height+1;
-    x = BORDER -images[0].width;
+    x = -images[0].width;
     y = height -BORDER -GROUND -altitude*city.block.height - CLEARANCE -plane.images[0].height;
     y1 = t = 0;
     landed = crashed = false;
@@ -28,13 +28,17 @@ class Plane {
     image(images[state],x,y+y1);
   }
   
+  void drop(Bomb bomb) {
+    bomb.drop(x+images[0].width/2, y+images[0].height/2);
+  }
+  
   void step() {
     switch (state) {
       case 0: // flying
       x += STEP;
       if (x > width +plane.images[0].width) { 
           // move the plane to the start of the next layer
-          x = BORDER-plane.images[0].width;
+          x = -plane.images[0].width;
           if (city.count>0) {
             y += city.block.height;
             altitude -= 1;
@@ -44,7 +48,7 @@ class Plane {
       if (building>=0 && city.getBuildingHeight(building)>altitude) {
         state++; // crash
         frameRate(10); // slo-mo
-        x = city.getBuildingX(building) +city.block.width -images[state].width;
+        x = city.getBuildingCentre(building) +city.block.width/2 -images[state].width;
         y += + CLEARANCE +images[state-1].height -images[state].height;
         city.crash(building);
       }
@@ -63,7 +67,7 @@ class Plane {
       
       case 1: // crashing
       state++;
-      x = city.getBuildingX(building) +city.block.width -images[state].width;
+      x = city.getBuildingCentre(building) +city.block.width/2 -images[state].width;
       y += images[state-1].height -images[state].height;
       break;
       

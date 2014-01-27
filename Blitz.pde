@@ -14,7 +14,7 @@ int BORDER = 12; // width/height of the border
 int GROUND = 4; // height of ground in pixels
 int CLEARANCE = 5; // clearance below the plane
 int GAP = 2; // gap between buildings
-int BREATHING_SPACE = 8; // space before first building
+int SPACE = 100; // space before first building
 int STEP = 5; // pixels traversed in one step
 int FONT_SIZE = 36;
 int BONUS = 10;
@@ -71,10 +71,8 @@ void draw() {
   drawScore();
   drawBest();
   city.draw();
-  if (bomb.falling) {
-    bomb.draw();
-    bomb.step();
-  }
+  bomb.draw();
+  bomb.step();
   plane.draw();
   if (!plane.landed) plane.step();
   else startGame();
@@ -84,9 +82,7 @@ void draw() {
       level = score = 0;
       startGame();
     }
-    else if (city.count>0) {
-      bomb.drop(plane.x+plane.images[0].width/2, plane.y+plane.images[0].height/2);
-    }
+    else if (city.count>0) plane.drop(bomb);
   }
   if (score>best) best = score;
 }

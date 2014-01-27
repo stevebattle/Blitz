@@ -13,14 +13,16 @@ class Bomb {
   
   void drop(int x, int y) {
     building = city.getBuilding(x);
-    this.x = building<0 ? x : city.getBuildingX(building)+city.block.width/2;
+    this.x = building<0 ? x : city.getBuildingCentre(building);
     this.y = y;
     bomb.falling = true;
     minimum = max(0,building>=0?city.floors[building]-FUSE:0);
   }
   
   void draw() {
-    image(image,x-image.width/2,y-image.height/2);
+    if (falling) {
+      image(image,x-image.width/2,y-image.height/2);
+    }
   }
   
   int altitude() {
@@ -28,9 +30,11 @@ class Bomb {
   }
   
   void step() {
-    y += STEP;
-    int a = altitude();
-    if (building>=0) city.bomb(building,a);
-    if (a<=minimum) falling = false;
+    if (falling) {
+      y += STEP;
+      int a = altitude();
+      if (building>=0) city.bomb(building,a);
+      if (a<=minimum) falling = false;
+    }
   }
 }
