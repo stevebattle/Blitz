@@ -58,14 +58,14 @@ class City {
   }
   
   int getBuildingCentre(int i) {
-    return i*(block.width+GAP) +margin +city.block.width/2;
+    return i*(block.width+GAP) +margin +block.width/2;
   }
   
   void crash(int i) {
     tops[i] = -1;
   }
   
-  void bomb(int i, int altitude) {
+  void destroy(int i, int altitude) {
     if (floors[i]-1>=altitude) {
       int points = floors[i] - max(0,altitude);
       score += points;

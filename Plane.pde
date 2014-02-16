@@ -49,7 +49,7 @@ class Plane {
         state++; // crash
         frameRate(10); // slo-mo
         x = city.getBuildingCentre(building) +city.block.width/2 -images[state].width;
-        y += + CLEARANCE +images[state-1].height -images[state].height;
+        y += CLEARANCE +images[state-1].height -images[state].height;
         city.crash(building);
       }
       if (city.count==0) { // safe to land

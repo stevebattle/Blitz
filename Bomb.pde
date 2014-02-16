@@ -33,7 +33,7 @@ class Bomb {
     if (falling) {
       y += STEP;
       int a = altitude();
-      if (building>=0) city.bomb(building,a);
+      if (building>=0) city.destroy(building,a);
       if (a<=minimum) falling = false;
     }
   }
